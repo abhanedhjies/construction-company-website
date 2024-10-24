@@ -1,0 +1,406 @@
+5<!DOCTYPE html>
+<html lang="en" ng-app="constructionApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Company Website</title>
+    <!-- Load AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Load AngularJS Route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <link rel="stylesheet" href="project.css">
+    <!--bootstrap -->
+    <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIqQiA0t+8Zk2R0J7B5Tz5es5A1fLdElgYAP9GJtDwv/KJ1Zkl0" crossorigin="anonymous">
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js" integrity="sha384-qLBl5YhAQFV1PFLckF9GIos97p5djP9ylBYz4pXJsqHXiOJHtYHpWW5UjxgOhc/u" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgEpKoDdCEXSUc3BzRCOqAHKnLb4IDTRQtxw0HJqu6GmBY/hf8Q" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div ng-controller="mainController">
+        <div id="titlebox">
+            <img src="banner.jpg" alt="" id="banner">
+            <div class="box1">
+            <h1 >CONSTRUCTION APP</h1>
+            <img src="logo.png" alt="Company Logo" id="logo" >
+        </div>
+        </div>
+        
+        <!-- Navigation Bar -->
+        <nav>
+            <ul>
+                <li><a href="#!/">Home</a></li>
+                <li><a href="#!/services">Services</a></li>
+                <li><a href="#!/appointments">Appointments</a></li>
+                <li><a href="#!/engineers">Engineer Profiles</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div ng-view ></div>
+        </div>
+
+        <!-- Home Template -->
+        <script type="text/ng-template" id="home.html">
+            <h1 align="center">{{ title }}</h1>
+            <p class="animated-text">
+                <span ng-repeat="word in subtitle.split(' ') track by $index" class="word-animation" style="--i:{{$index}}">
+                    {{word}}&nbsp;
+                </span>
+            </p>
+            <section class="featured-services">
+            <div class="container-fluid">
+                <h2>Our Featured Services</h2>
+                <ul>
+                    <li ng-repeat="service in services">{{ service }}</li>
+                </ul>
+            </div>
+            </section>
+        
+            <section class="completed-works">
+                <h2>Build Your Home</h2>
+                <div class="scroll-container">
+                    <button class="prev-btn" ng-click="prevImage()">&#10094;</button>
+                    <div class="image-wrapper">
+                        <img ng-src="{{ works[currentImageIndex].image }}" alt="Completed Work" class="scroll-image">
+                    </div>
+                    <button class="next-btn" ng-click="nextImage()">&#10095;</button>
+                </div>
+            </section>
+            
+            <hr>
+            <div class="contacts">
+                <table >
+                    
+                    <tr>
+                        <th>
+                            <a href="#!/appointments">Book an Appointment</a>
+                        </th>&nbsp;
+                        <th>
+                            <a href="#!/services">View Services</a>
+                        </th>&nbsp;
+                        <th>&nbsp;
+                            <a href="mailto:abhanedhjies@karunya.edu"> 
+                                <img src="mail.png" alt="mail"style="width: 100px;">
+                            </a>&nbsp;
+                        </th>
+                        <th>&nbsp;
+                            <a href="tel:6369511552"> 
+                                <img src="phone.jpeg" alt="phone"style="width: 100px;">
+
+                            </a> &nbsp;
+                        </th>
+                        <th>&nbsp;
+                            <a href="https://www.facebook.com/"> 
+                                <img src="facebook.png" alt="facebook"style="width: 100px;">
+                            </a> &nbsp;
+                        </th>
+                        <th>&nbsp;
+                            <a href="https://in.linkedin.com/"> 
+                                <img src="linkedin.png"alt="linkedin"style="width: 100px;">
+                            </a> &nbsp;
+                        </th>
+                        <th>&nbsp;
+                            <a href="https://www.instagram.com/"> 
+                                <img src="insta.jpeg"alt="insta"style="width: 100px;">
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+                
+            </div><hr>
+        </script>
+
+        <!-- Services Template -->
+        <script type="text/ng-template" id="services.html">
+            <h1 align="center">Our Services</h1>
+            <div class="services-container">
+                <div class="service-item" ng-repeat="service in services">
+                    <div class="service-image-container">
+                        <img ng-src="{{ service.image }}" alt="{{ service.title }}">
+                        <h2>{{ service.title }}</h2>
+                        <div class="service-info">
+                            <p>{{ service.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>For more information or to book a service, visit our <a href="#!/appointments">Appointments Page</a>.</p>
+        </script>
+        
+
+        <!-- Appointments Template -->
+        <script type="text/ng-template" id="appointments.html">
+
+            <div class="formfield">
+                <img src="backgrnd-appointment.jpg" alt="formbg" >
+                <div>
+              <fieldset>
+                <legend>
+                  <h1>Book an Appointment</h1>
+                </legend>
+                <form ng-submit="submitAppointment()">
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" ng-model="appointment.name" required>
+                  <br>
+          
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" ng-model="appointment.email" required>
+                  <br>
+          
+                  <label for="service">Service:</label>
+                  <select id="service" ng-model="appointment.service">
+                    <option value="approval">Building Approval</option>
+                    <option value="3d">3D Modeling</option>
+                    <option value="onsite">Onsite Visit</option>
+                    <option value="labor">Labor Services</option>
+                    <option value="rental">Machinery Rental</option>
+                  </select>
+                  <br>
+          
+                  <button type="submit" class="feedbutton">Submit Appointment</button>
+                </form>
+              </fieldset>
+            </div>
+            </div>
+            <!-- Feedback Section -->
+<div class="feedback-section">
+    <h1>Submit Feedback</h1>
+    <form ng-submit="submitFeedback()">
+        <label for="feedbackName">Name:</label>
+        <input type="text" id="feedbackName" ng-model="feedback.name" required>
+        
+        <label for="feedbackEmail">Email:</label>
+        <input type="email" id="feedbackEmail" ng-model="feedback.email" required>
+        
+        <label for="feedbackMessage">Message:</label>
+        <textarea id="feedbackMessage" ng-model="feedback.message" required></textarea>
+        
+        <button type="submit" class="feedbutton">Submit Feedback</button>
+    </form>
+
+    <h1>Feedbacks</h1>
+    <div class="scroll-area">
+        <ul>
+            <li ng-repeat="item in feedbacks">
+                <strong>{{ item.name }}:</strong> {{ item.message }} <em>({{ item.date | date:'short' }})</em>
+            </li>
+        </ul>
+    </div>
+</div>
+</script>
+          
+
+                  <!-- Engineers Template -->
+        <!-- Engineer Profiles Template -->
+<!-- Engineer Profiles Template -->
+<script type="text/ng-template" id="engineers.html">
+    <div class="container">
+        <h1 class="text-center my-5 font-weight-bold" style="font-family: 'Georgia', serif; font-size: 3rem;">Engineer Profiles</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4" ng-repeat="engineer in engineers">
+                <div class="card profile-card mb-5 border-0 shadow-sm">
+                    <div class="profile-image-container">
+                        <!-- Placeholder image or real image path -->
+                        <img src="{{ engineer.photo }}" class="profile-image rounded-circle" alt="{{ engineer.name }}">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title" style="font-family: 'Times New Roman', serif;">{{ engineer.name }}</h4>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;"><strong>License #:</strong> {{ engineer.license }}</p>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;"><strong>Affiliation:</strong> {{ engineer.affiliation }}</p>
+                        <hr>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+    </div>
+
+    <!-- AngularJS Script -->
+    <script>
+        // Define the AngularJS application module
+        var app = angular.module('constructionApp', ['ngRoute']);
+
+        // Configure routes
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "home.html",
+                    controller: "homeController"
+                })
+                .when("/services", {
+                    templateUrl: "services.html",
+                    controller: "servicesController"
+                })
+                .when("/appointments", {
+                    templateUrl: "appointments.html",
+                    controller: "appointmentsController"
+                })
+                .when("/engineers", {
+                    templateUrl : "engineers.html",
+                    controller: "engineersController"
+                })
+                .otherwise({
+                    redirectTo: "/"
+                });
+        });
+
+        // Main Controller
+        app.controller('mainController', function ($scope) {});
+
+        // Home Controller
+        app.controller('homeController', function ($scope, $interval, $timeout) {
+    // Title and subtitle for the homepage
+    $scope.title = "Welcome to APP Construction";
+    $scope.subtitle = "Welcome to APP Construction, your trusted partner for reliable, innovative, and high-quality construction services. With a proven track record of delivering exceptional residential, commercial, and industrial projects, we pride ourselves on turning our clients’ visions into reality. Our team of experienced professionals is dedicated to offering comprehensive solutions, from initial planning and approvals to the final finishing touches. Whether you need expert architectural designs, on-site consultations, or specialized labor for construction tasks, we are committed to excellence at every step. At APP Construction, we build not just structures, but lasting relationships based on trust and satisfaction.";
+
+    // List of services
+    $scope.services = [
+        "Building Approvals",
+        "3D Modeling",
+        "Onsite Visits",
+        "Labor Services (Plastering, Tiling, Plumbing, Painting)",
+        "Machinery Rentals (Concrete Mixers, etc.)"
+    ];
+
+    // Array of completed works (image URLs and titles)
+    $scope.works = [
+        { image: "house2.jpeg" },
+        { image: "house3.jpeg" },
+        { image: "house4.jpeg" },
+        { image: "house5.jpeg" },
+        { image: "house6.jpeg" }
+    ];
+
+    $scope.currentImageIndex = 0;
+
+// Function to go to the previous image
+$scope.prevImage = function() {
+    if ($scope.currentImageIndex > 0) {
+        $scope.currentImageIndex--;
+    } else {
+        $scope.currentImageIndex = $scope.works.length - 1; // Loop back to last image
+    }
+};
+
+// Function to go to the next image
+$scope.nextImage = function() {
+    if ($scope.currentImageIndex < $scope.works.length - 1) {
+        $scope.currentImageIndex++;
+    } else {
+        $scope.currentImageIndex = 0; // Loop back to first image
+    }
+};
+});
+
+        // Services Controller
+        app.controller('servicesController', function ($scope) {
+    // List of services with images and descriptions
+    $scope.services = [
+        {
+            title: "Building Approvals",
+            image: "approval.jpeg",
+            description: "Navigating the complexities of building regulations can be challenging. Our experienced team simplifies the process by managing all the paperwork, compliance, and legalities involved in obtaining building approvals. We ensure that your project meets local standards, saving you time and stress."
+        },
+        {
+            title: "3D Modeling",
+            image: "3d model.jpeg",
+            description: "Imagine your project in full detail before construction even begins. Our state-of-the-art 3D modeling services provide realistic visualizations, allowing you to see how your project will look in real life. This technology helps you make informed decisions about design, materials, and layout, ensuring everything is perfect before breaking ground."
+        },
+        {
+            title: "Onsite Visits",
+            image: "onsitevisit.jpeg",
+            description: "Our professional team conducts thorough onsite consultations, assessing every aspect of your project to ensure precision and quality. Whether it's evaluating site conditions, suggesting improvements, or providing expert advice on materials and techniques, we offer tailored insights to keep your project on track."
+        },
+        {
+            title: "Labor Services",
+            image: "labour.jpeg",
+            description: "Quality craftsmanship is essential to a successful build. We provide skilled workers for all your construction needs, including plastering, tiling, plumbing, and painting. Each of our professionals is trained to deliver excellence, ensuring the highest standards of workmanship for every task."
+        },
+        {
+            title: "Machinery Rentals",
+            image: "machinery.jpeg",
+            description: "No project can proceed smoothly without the right equipment. We offer a wide range of construction machinery rentals, including concrete mixers, cranes, and other essential tools. Our top-tier equipment ensures efficiency and safety, helping you stay on schedule and within budget."
+        }
+    ];
+});
+
+
+        // Appointments Controller
+   // Appointments Controller
+   app.controller('appointmentsController', function ($scope, $http) {
+        $scope.appointment = {};
+        $scope.feedback = {};
+        $scope.feedbacks = [];
+
+        // Submit appointment to server
+        $scope.submitAppointment = function () {
+            $http.post('http://localhost:3000/appointments', $scope.appointment)
+                .then(function (response) {
+                    alert("Appointment booked successfully!");
+                    $scope.appointment = {}; // Clear the form after submission
+                }, function (error) {
+                    console.error("Error booking appointment", error);
+                });
+        };
+
+        // Submit feedback to server
+        $scope.submitFeedback = function () {
+            $http.post('http://localhost:3000/feedback', $scope.feedback)
+                .then(function (response) {
+                    alert("Feedback submitted successfully!");
+                    $scope.feedback = {}; // Clear the feedback form after submission
+                    $scope.getFeedback(); // Refresh feedback list
+                }, function (error) {
+                    console.error("Error submitting feedback", error);
+                });
+        };
+
+        // Fetch feedback from server
+        $scope.getFeedback = function () {
+            $http.get('http://localhost:3000/feedback')
+                .then(function (response) {
+                    $scope.feedbacks = response.data; // Populate feedbacks
+                }, function (error) {
+                    console.error("Error fetching feedbacks", error);
+                });
+        };
+
+        // Call the function to load feedback when controller initializes
+        $scope.getFeedback();
+    });
+
+
+        // Engineers Controller
+        app.controller('engineersController', function ($scope) {
+    $scope.engineers = [
+        {
+            name: "Abhanedh Jies",
+            license: "123456",
+            affiliation: "Association of Civil Engineers",
+            photo: "profile abhi.JPG" // Replace with actual image URL
+        },
+        {
+            name: "Shaun Sunny",
+            license: "7891011",
+            affiliation: "National Institute of Architects",
+            photo: "profile abhi.JPG" // Replace with actual image URL
+        }
+    ];
+});
+    </script>
+
+</body>
+
+</html>
